@@ -10,29 +10,50 @@ function obterUsuario(callback) {
   }, 1000)
 }
 
-function obterTelefone(idUsuario) {
+function obterTelefone(idUsuario, callback) {
   setTimeout(function(){
-    return {
+    return callback(null, {
       telefone: '92823191',
       ddd: 11
-    }
-  }, 2000);
+    });
+  }, 1000);
 }
 
-function obterEndereco(idUsuario) {
+function obterEndereco(idUsuario, callback) {
   setTimeout(function(){
-    return {
+    return callback(null, {
       rua: 'Rua Fulano de Tal',
       numero: 19
-    }
-  }, 2000);
+    });
+  }, 1000);
 }
 
 function resolverUsuario(error, usuario){
   console.log('usuario', usuario);
 }
 
-obterUsuario(resolverUsuario);
+obterUsuario(function revolverUsuario(error, usuario){
+  // null || "" || 0 === false
+  if (error) {
+    console.log("ERROR", error);
+  }
+  obterTelefone(usuario.id, function resolverTelefone(error1, telefone){
+    if (error) {
+      console.log("ERROR", error);
+    }
+    obterEndereco(usuario.id, function resolverEndereco(error2, endereco){
+      if (error) {
+        console.log("ERROR", error);
+      }
+
+      console.log(`
+        Nome: ${usuario.nome},
+        Telefone: ${telefone.ddd} ${telefone.telefone},
+        Endereco: ${endereco.rua} ${endereco.numero}
+      `);
+    });
+  });
+});
 
 // const usuario = obterUsuario();
 // const telefone = obterTelefone(usuario.id);
