@@ -1,12 +1,12 @@
 /**  */
 
-function obterUsuario() {
+function obterUsuario(callback) {
   setTimeout(function () {
-    return {
+    return callback(null, {
       id: 1,
       nome: 'Usuaroi',
       dataNascimento: new Date()
-    }
+    });
   }, 1000)
 }
 
@@ -28,8 +28,14 @@ function obterEndereco(idUsuario) {
   }, 2000);
 }
 
-const usuario = obterUsuario();
-const telefone = obterTelefone(usuario.id);
-const endereco = obterTelefone(usuario.id);
+function resolverUsuario(error, usuario){
+  console.log('usuario', usuario);
+}
 
-console.log(usuario, telefone, endereco);
+obterUsuario(resolverUsuario);
+
+// const usuario = obterUsuario();
+// const telefone = obterTelefone(usuario.id);
+// const endereco = obterTelefone(usuario.id);
+
+// console.log(usuario, telefone, endereco);
