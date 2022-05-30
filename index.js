@@ -28,9 +28,11 @@ function obterEndereco(idUsuario, callback) {
   }, 1000);
 }
 
-function resolverUsuario(error, usuario){
-  console.log('usuario', usuario);
-}
+// function resolverUsuario(error, usuario){
+//   console.log('usuario', usuario);
+// }
+
+// obterUsuario(resolverUsuario);
 
 obterUsuario(function revolverUsuario(error, usuario){
   // null || "" || 0 === false
